@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tecno.api_sec.controllers.api.dtos.auth.AuthenticationRequestDTO;
 import com.tecno.api_sec.controllers.api.dtos.auth.AuthenticationResponseDTO;
+import com.tecno.api_sec.persistence.entity.UserEntity;
 import com.tecno.api_sec.services.impl.AuthenticationServiceImpl;
 
 import jakarta.validation.Valid;
@@ -37,5 +38,4 @@ public class AuthenticationController {
         boolean isTokenValid = authenticationService.validateToken(jwt);
         return ResponseEntity.ok(isTokenValid);
     }
-    
 }

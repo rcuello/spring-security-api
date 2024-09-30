@@ -4,7 +4,7 @@
 
 INSERT INTO users (username, first_name,last_name,email, password, role) VALUES ('rcuello', 'Ronald','Cuello','rcuello@mail.com', '$2a$10$CfNa7120LlhuFZW5aS2gN.hkET/CmP0fKObYdbemtnaXTRjZVJZ4W', 'ROLE_CUSTOMER');
 INSERT INTO users (username, first_name,last_name,email, password, role) VALUES ('pperez', 'Pepito','Perez','pperez@mail.com', '$2a$10$vKtgkXrTDCVAH5qzqybBJuKypYjDPQyeBSO8UR3sH1x7hRhTfetwm', 'ROLE_ASSISTANT_ADMINISTRATOR');
-INSERT INTO users (username, first_name,last_name,email, password, role) VALUES ('usuario', 'Usuario','User','user@mail.com', '$2a$10$FV0v5FjoY2j668DD0zvRUOQBz6e45ewHuOrp26JXJqxIHydMgRhZm', 'ROLE_ADMINISTRATOR');
+INSERT INTO users (username, first_name,last_name,email, password, role) VALUES ('admin', 'Usuario','User','admin@mail.com', '$2a$10$FV0v5FjoY2j668DD0zvRUOQBz6e45ewHuOrp26JXJqxIHydMgRhZm', 'ROLE_ADMINISTRATOR');
 
 INSERT INTO categories (name, status) VALUES ('Electrónica', 'ENABLED');
 INSERT INTO categories (name, status) VALUES ('Ropa', 'ENABLED');
