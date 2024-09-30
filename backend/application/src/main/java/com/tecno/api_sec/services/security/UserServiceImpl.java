@@ -39,7 +39,7 @@ public class UserServiceImpl implements IUserService{
         user.setFirstName(newUser.getName());
         user.setLastName(newUser.getLastName());
         user.setPassword(passwordEncoded);
-        user.setRole(Role.ROLE_CUSTOMER);
+        user.setRole(Role.CUSTOMER);
 
         //Guardar usuario en la base de datos
         userDAO.saveUser(user);
