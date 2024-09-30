@@ -116,14 +116,11 @@ public class UserEntity implements UserDetails{
             authorities.add(authority);
        }
 
-       return authorities;
+       // Se añade el rol como una autoridad
+       // Spring Security espera que los roles tengan el prefijo "ROLE_" y se manejan como si fueran Authorities
+       authorities.add(new SimpleGrantedAuthority("ROLE_" + this.role.name()));
 
-       /*return role.getPermissions().stream()
-       .map(each -> {
-            String permission = each.name();
-            return new SimpleGrantedAuthority(permission);
-       })
-       .collect(Collectors.toList());*/
+       return authorities;
     }
 
    
