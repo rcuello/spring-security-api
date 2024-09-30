@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tecno.api_sec.configuration.security.filters.AuditDetails;
+import com.tecno.api_sec.controllers.api.dtos.UserProfileDTO;
 import com.tecno.api_sec.persistence.entity.UserEntity;
 import com.tecno.api_sec.services.impl.AuditExtractorService;
 import com.tecno.api_sec.services.impl.AuthenticationServiceImpl;
@@ -21,13 +22,25 @@ public class ProfileController {
     private AuditExtractorService auditExtractorService;
 
     @GetMapping("/my-profile")
-    public ResponseEntity<UserEntity> findMyProfile() {
+    public ResponseEntity<UserProfileDTO> findMyProfile() {
+
+        // Obtener el usuario actualmente autenticado
         UserEntity user = authenticationService.findCurrentUser();
+
+        // Mapear las propiedades del UserEntity al UserProfileDTO
+        UserProfileDTO userProfileDTO = new UserProfileDTO();
+        userProfileDTO.setId(user.getId());
+        userProfileDTO.setUsername(user.getUsername());
+        userProfileDTO.setFirstName(user.getFirstName());
+        userProfileDTO.setLastName(user.getLastName());
+        userProfileDTO.setEmail(user.getEmail());
+        userProfileDTO.setRole(user.getRole());
+        userProfileDTO.setAuthorities(user.getAuthorities());
 
         AuditDetails audit = auditExtractorService.extractClientAudit();
         System.out.println(audit.getRemoteAddress());
         System.out.println(audit.getUserAgent());
 
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok(userProfileDTO);
     }
 }
