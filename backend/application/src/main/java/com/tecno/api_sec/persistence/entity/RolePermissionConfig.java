@@ -2,6 +2,7 @@ package com.tecno.api_sec.persistence.entity;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Collections;
 
 public class RolePermissionConfig {
 
@@ -36,7 +37,8 @@ public class RolePermissionConfig {
                     RolePermission.READ_MY_PROFILE
                 );
             default:
-                throw new IllegalArgumentException("Role not supported: " + role);
+                // Retorna un arreglo vacío si el rol no tiene permisos definidos
+                return Collections.emptyList();
         }
     }
 }
