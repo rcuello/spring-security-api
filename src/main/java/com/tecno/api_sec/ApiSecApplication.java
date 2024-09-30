@@ -7,10 +7,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
-public class StartupApplication {
+public class ApiSecApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(StartupApplication.class, args);
+		SpringApplication.run(ApiSecApplication.class, args);
 	}
 
 	@Bean
