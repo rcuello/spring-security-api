@@ -12,7 +12,6 @@ import com.tecno.api_sec.controllers.api.dtos.SaveCategoryDTO;
 import com.tecno.api_sec.persistence.entity.Category;
 import com.tecno.api_sec.services.impl.ICategoryService;
 
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/categories")
@@ -24,5 +23,17 @@ public class CategoryController {
     public ResponseEntity<Category> createOne(@RequestBody @Valid SaveCategoryDTO saveCategory){
         Category category = categoryService.createOne(saveCategory);
         return ResponseEntity.status(HttpStatus.CREATED).body(category);
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<Category>> findAll(Pageable pageable){
+
+        Page<Category> categoriesPage = categoryService.findAll(pageable);
+
+        if(categoriesPage.hasContent()){
+            return ResponseEntity.ok(categoriesPage);
+        }
+
+        return ResponseEntity.notFound().build();
     }
 }

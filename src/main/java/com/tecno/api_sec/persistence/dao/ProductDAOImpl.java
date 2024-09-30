@@ -6,16 +6,18 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.tecno.api_sec.controllers.api.dtos.SaveProductDTO;
+import com.tecno.api_sec.exceptions.ObjectNotFoundException;
+import com.tecno.api_sec.persistence.entity.Category;
 import com.tecno.api_sec.persistence.entity.Product;
+import com.tecno.api_sec.persistence.entity.ProductStatus;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Root;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductDAOImpl implements IProductDAO{
@@ -30,26 +32,42 @@ public class ProductDAOImpl implements IProductDAO{
     }
 
     @Override
+    @Transactional
+    public void updateProduct(Product product) {
+        entityManager.merge(product);        
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public Page<Product> findAll(Pageable pageable) {
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Product> cq = cb.createQuery(Product.class);
-        Root<Product> product = cq.from(Product.class);
-        cq.select(product);
+        // Crear una consulta JPQL para obtener todos los productos
+        String jpql = "SELECT p FROM Product p";
+        TypedQuery<Product> query = entityManager.createQuery(jpql, Product.class);
 
-        TypedQuery<Product> query = entityManager.createQuery(cq);
+        // Aplicar paginación
         query.setFirstResult((int) pageable.getOffset());
         query.setMaxResults(pageable.getPageSize());
 
+        // Obtener los productos de la página actual
         List<Product> products = query.getResultList();
 
-        // Obtener el número total de productos
-        CriteriaQuery<Long> countQuery = cb.createQuery(Long.class);
-        Root<Product> countProduct = countQuery.from(Product.class);
-        countQuery.select(cb.count(countProduct));
-        Long total = entityManager.createQuery(countQuery).getSingleResult();
+        // Crear una consulta JPQL para obtener el número total de productos
+        String countJpql = "SELECT COUNT(p) FROM Product p";
+        TypedQuery<Long> countQuery = entityManager.createQuery(countJpql, Long.class);
 
+        // Obtener el número total de productos
+        Long total = countQuery.getSingleResult();
+
+        // Devolver la página de productos
         return new PageImpl<>(products, pageable, total);
     }
+
+    @Override
+    public Optional<Product> findOneById(Long productId) {
+        Product product = entityManager.find(Product.class, productId);
+
+        return Optional.ofNullable(product);
+    }
+
 }
 

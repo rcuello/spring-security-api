@@ -5,7 +5,11 @@ import org.springframework.data.domain.Pageable;
 
 import com.tecno.api_sec.persistence.entity.Product;
 
+import java.util.Optional;
+
 public interface IProductDAO {
     void createProduct(Product product);
+    void updateProduct(Product product);
     Page<Product> findAll(Pageable pageable);
+    Optional<Product> findOneById(Long productId);
 }

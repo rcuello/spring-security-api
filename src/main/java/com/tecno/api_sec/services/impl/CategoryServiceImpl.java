@@ -1,6 +1,8 @@
 package com.tecno.api_sec.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.tecno.api_sec.controllers.api.dtos.SaveCategoryDTO;
@@ -23,5 +25,10 @@ public class CategoryServiceImpl implements ICategoryService{
         categoryDAO.createCategory(category);
 
         return category;
+    }
+
+    @Override
+    public Page<Category> findAll(Pageable pageable) {
+        return categoryDAO.findAll(pageable);
     }
 }

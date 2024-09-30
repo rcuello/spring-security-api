@@ -12,6 +12,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.tecno.api_sec.configuration.security.filters.JwtAuthenticationFilter;
+import com.tecno.api_sec.persistence.entity.RolePermission;
 
 /**
  * Configuración de seguridad HTTP para la aplicación.
@@ -67,7 +68,17 @@ public class HttpSecurityConfig {
                 
                 // Configura las reglas de autorización para las solicitudes HTTP
                 .authorizeHttpRequests(authReqConfig ->{
-                    
+                                       
+                    // ##############################################################
+                    // Autorizacion de endpoints de Products
+                    // ##############################################################
+                    authReqConfig.requestMatchers(HttpMethod.GET,"/products").hasAuthority(RolePermission.READ_ALL_PRODUCTS.name());
+                    authReqConfig.requestMatchers(HttpMethod.GET,"/products/{productId}").hasAuthority(RolePermission.READ_ONE_PRODUCT.name());
+                    authReqConfig.requestMatchers(HttpMethod.POST,"/products").hasAuthority(RolePermission.CREATE_ONE_PRODUCT.name());
+                    authReqConfig.requestMatchers(HttpMethod.PUT,"/products/{productId}").hasAuthority(RolePermission.UPDATE_ONE_PRODUCT.name());
+                    authReqConfig.requestMatchers(HttpMethod.PUT,"/products/{productId}/disabled").hasAuthority(RolePermission.DISABLE_ONE_PRODUCT.name());
+
+
                     // Permite el acceso público a las solicitudes POST a /customers
                     authReqConfig.requestMatchers(HttpMethod.POST, "/customers").permitAll();
                     // Permite el acceso público a las solicitudes POST a /auth/auth
