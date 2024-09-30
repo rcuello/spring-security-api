@@ -7,6 +7,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AuthorizeHttpRequestsConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -70,41 +71,84 @@ public class HttpSecurityConfig {
                 // Configura las reglas de autorización para las solicitudes HTTP
                 .authorizeHttpRequests(authReqConfig ->{
                                        
-                    // ##############################################################
-                    // Autorizacion de endpoints de Productos
-                    // ##############################################################
-                    authReqConfig.requestMatchers(HttpMethod.GET,"/products").hasAnyRole(Role.ADMINISTRATOR.name(), Role.ASSISTANT_ADMINISTRATOR.name());
-                    authReqConfig.requestMatchers(HttpMethod.GET,"/products/{productId}").hasAnyRole(Role.ADMINISTRATOR.name(), Role.ASSISTANT_ADMINISTRATOR.name());
-                    authReqConfig.requestMatchers(HttpMethod.POST,"/products").hasAnyRole(Role.ADMINISTRATOR.name(), Role.ASSISTANT_ADMINISTRATOR.name());
-                    authReqConfig.requestMatchers(HttpMethod.PUT,"/products/{productId}").hasAnyRole(Role.ADMINISTRATOR.name(), Role.ASSISTANT_ADMINISTRATOR.name());
-                    authReqConfig.requestMatchers(HttpMethod.PUT,"/products/{productId}/disabled").hasAnyRole(Role.ADMINISTRATOR.name(), Role.ASSISTANT_ADMINISTRATOR.name());
+                    // Autorizacion por Roles
+                    buildRequestMatchersByRole(authReqConfig);
 
-                    // ##############################################################
-                    // Autorizacion de endpoints de Categorias
-                    // ##############################################################
-                    authReqConfig.requestMatchers(HttpMethod.GET,"/categories").hasAnyRole(Role.ADMINISTRATOR.name(), Role.ASSISTANT_ADMINISTRATOR.name());
-                    authReqConfig.requestMatchers(HttpMethod.GET,"/categories/{categoryId}").hasAnyRole(Role.ADMINISTRATOR.name(), Role.ASSISTANT_ADMINISTRATOR.name());
-                    authReqConfig.requestMatchers(HttpMethod.POST,"/categories").hasAnyRole(Role.ADMINISTRATOR.name(), Role.ASSISTANT_ADMINISTRATOR.name());
-                    authReqConfig.requestMatchers(HttpMethod.PUT,"/categories/{categoryId}").hasAnyRole(Role.ADMINISTRATOR.name(), Role.ASSISTANT_ADMINISTRATOR.name());
-                    authReqConfig.requestMatchers(HttpMethod.PUT,"/categories/{categoryId}/disabled").hasAnyRole(Role.ADMINISTRATOR.name(), Role.ASSISTANT_ADMINISTRATOR.name());
-
-                    // ##############################################################
-                    // Autorizacion de endpoints de Perfiles de usuario
-                    // ##############################################################
-                    authReqConfig.requestMatchers(HttpMethod.POST, "/profile/my-profile").hasAnyRole(Role.ADMINISTRATOR.name(), Role.ASSISTANT_ADMINISTRATOR.name(),Role.CUSTOMER.name());
-
-                    // ##############################################################
-                    // Endpoints publicos
-                    // ##############################################################
-                    authReqConfig.requestMatchers(HttpMethod.POST, "/customers").permitAll();
-                    authReqConfig.requestMatchers(HttpMethod.POST, "/auth/authenticate").permitAll();
-                    authReqConfig.requestMatchers(HttpMethod.GET, "/auth/validate-token").permitAll();
-
-                    // Requiere autenticación para cualquier otra solicitud
-                    authReqConfig.anyRequest().authenticated();
+                    // Autorizacion Por Permisos individuales
+                    //buildRequestMatchersByPermissions(authReqConfig);
                 })
                 .build();
 
         return filterChain;
+    }
+
+    private static void buildRequestMatchersByRole(AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry authReqConfig){
+        // ##############################################################
+        // Autorizacion de endpoints de Productos
+        // ##############################################################
+        authReqConfig.requestMatchers(HttpMethod.GET,"/products").hasAnyRole(Role.ADMINISTRATOR.name(), Role.ASSISTANT_ADMINISTRATOR.name());
+        authReqConfig.requestMatchers(HttpMethod.GET,"/products/{productId}").hasAnyRole(Role.ADMINISTRATOR.name(), Role.ASSISTANT_ADMINISTRATOR.name());
+        authReqConfig.requestMatchers(HttpMethod.POST,"/products").hasAnyRole(Role.ADMINISTRATOR.name(), Role.ASSISTANT_ADMINISTRATOR.name());
+        authReqConfig.requestMatchers(HttpMethod.PUT,"/products/{productId}").hasAnyRole(Role.ADMINISTRATOR.name(), Role.ASSISTANT_ADMINISTRATOR.name());
+        authReqConfig.requestMatchers(HttpMethod.PUT,"/products/{productId}/disabled").hasAnyRole(Role.ADMINISTRATOR.name(), Role.ASSISTANT_ADMINISTRATOR.name());
+
+        // ##############################################################
+        // Autorizacion de endpoints de Categorias
+        // ##############################################################
+        authReqConfig.requestMatchers(HttpMethod.GET,"/categories").hasAnyRole(Role.ADMINISTRATOR.name(), Role.ASSISTANT_ADMINISTRATOR.name());
+        authReqConfig.requestMatchers(HttpMethod.GET,"/categories/{categoryId}").hasAnyRole(Role.ADMINISTRATOR.name(), Role.ASSISTANT_ADMINISTRATOR.name());
+        authReqConfig.requestMatchers(HttpMethod.POST,"/categories").hasAnyRole(Role.ADMINISTRATOR.name(), Role.ASSISTANT_ADMINISTRATOR.name());
+        authReqConfig.requestMatchers(HttpMethod.PUT,"/categories/{categoryId}").hasAnyRole(Role.ADMINISTRATOR.name(), Role.ASSISTANT_ADMINISTRATOR.name());
+        authReqConfig.requestMatchers(HttpMethod.PUT,"/categories/{categoryId}/disabled").hasAnyRole(Role.ADMINISTRATOR.name(), Role.ASSISTANT_ADMINISTRATOR.name());
+
+        // ##############################################################
+        // Autorizacion de endpoints de Perfiles de usuario
+        // ##############################################################
+        authReqConfig.requestMatchers(HttpMethod.POST, "/profile/my-profile").hasAnyRole(Role.ADMINISTRATOR.name(), Role.ASSISTANT_ADMINISTRATOR.name(),Role.CUSTOMER.name());
+
+        // ##############################################################
+        // Endpoints publicos
+        // ##############################################################
+        authReqConfig.requestMatchers(HttpMethod.POST, "/customers").permitAll();
+        authReqConfig.requestMatchers(HttpMethod.POST, "/auth/authenticate").permitAll();
+        authReqConfig.requestMatchers(HttpMethod.GET, "/auth/validate-token").permitAll();
+
+        // Requiere autenticación para cualquier otra solicitud
+        authReqConfig.anyRequest().authenticated();
+    }
+
+    private static void buildRequestMatchersByPermissions(AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry authReqConfig){
+        // ##############################################################
+        // Autorizacion de endpoints de Productos
+        // ############################################################## 
+        authReqConfig.requestMatchers(HttpMethod.GET,"/products").hasAuthority(RolePermission.READ_ALL_PRODUCTS.name());
+        authReqConfig.requestMatchers(HttpMethod.GET,"/products/{productId}").hasAuthority(RolePermission.READ_ONE_PRODUCT.name());
+        authReqConfig.requestMatchers(HttpMethod.POST,"/products").hasAuthority(RolePermission.CREATE_ONE_PRODUCT.name());
+        authReqConfig.requestMatchers(HttpMethod.PUT,"/products/{productId}").hasAuthority(RolePermission.UPDATE_ONE_PRODUCT.name());
+        authReqConfig.requestMatchers(HttpMethod.PUT,"/products/{productId}/disabled").hasAuthority(RolePermission.DISABLE_ONE_PRODUCT.name());
+
+        // ##############################################################
+        // Autorizacion de endpoints de Categorias
+        // ##############################################################
+        authReqConfig.requestMatchers(HttpMethod.GET,"/categories").hasAuthority(RolePermission.READ_ALL_CATEGORIES.name());
+        authReqConfig.requestMatchers(HttpMethod.GET,"/categories/{categoryId}").hasAuthority(RolePermission.READ_ONE_CATEGORY.name());
+        authReqConfig.requestMatchers(HttpMethod.POST,"/categories").hasAuthority(RolePermission.CREATE_ONE_CATEGORY.name());
+        authReqConfig.requestMatchers(HttpMethod.PUT,"/categories/{categoryId}").hasAuthority(RolePermission.UPDATE_ONE_CATEGORY.name());
+        authReqConfig.requestMatchers(HttpMethod.PUT,"/categories/{categoryId}/disabled").hasAuthority(RolePermission.DISABLE_ONE_CATEGORY.name());
+
+        // ##############################################################
+        // Autorizacion de endpoints de Perfiles de usuario
+        // ##############################################################
+        authReqConfig.requestMatchers(HttpMethod.POST, "/profile/my-profile").hasAuthority(RolePermission.READ_MY_PROFILE.name());
+
+        // ##############################################################
+        // Endpoints publicos
+        // ##############################################################
+        authReqConfig.requestMatchers(HttpMethod.POST, "/customers").permitAll();
+        authReqConfig.requestMatchers(HttpMethod.POST, "/auth/authenticate").permitAll();
+        authReqConfig.requestMatchers(HttpMethod.GET, "/auth/validate-token").permitAll();
+
+        // Requiere autenticación para cualquier otra solicitud
+        authReqConfig.anyRequest().authenticated();
     }
 }
