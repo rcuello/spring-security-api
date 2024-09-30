@@ -2,9 +2,9 @@
 
 -- Spring Boot detectará automáticamente el archivo import.sql y lo ejecutará al iniciar la aplicación
 
-INSERT INTO users (username, first_name,last_name,email, password, role) VALUES ('cliente', 'John','Doe','john.doe@mail.com', '$2a$10$CfNa7120LlhuFZW5aS2gN.hkET/CmP0fKObYdbemtnaXTRjZVJZ4W', 'ROLE_CUSTOMER');
-INSERT INTO users (username, first_name,last_name,email, password, role) VALUES ('asistente', 'Homero','Simpson','homero.simpson@mail.com', '$2a$10$vKtgkXrTDCVAH5qzqybBJuKypYjDPQyeBSO8UR3sH1x7hRhTfetwm', 'ROLE_ASSISTANT_ADMINISTRATOR');
-INSERT INTO users (username, first_name,last_name,email, password, role) VALUES ('admin', 'Super','Admin','admin@mail.com', '$2a$10$FV0v5FjoY2j668DD0zvRUOQBz6e45ewHuOrp26JXJqxIHydMgRhZm', 'ROLE_ADMINISTRATOR');
+INSERT INTO users (username, first_name,last_name,email, password, role) VALUES ('cliente', 'John','Doe','john.doe@mail.com', '$2a$10$CfNa7120LlhuFZW5aS2gN.hkET/CmP0fKObYdbemtnaXTRjZVJZ4W', 'CUSTOMER');
+INSERT INTO users (username, first_name,last_name,email, password, role) VALUES ('asistente', 'Homero','Simpson','homero.simpson@mail.com', '$2a$10$vKtgkXrTDCVAH5qzqybBJuKypYjDPQyeBSO8UR3sH1x7hRhTfetwm', 'ASSISTANT_ADMINISTRATOR');
+INSERT INTO users (username, first_name,last_name,email, password, role) VALUES ('admin', 'Super','Admin','admin@mail.com', '$2a$10$FV0v5FjoY2j668DD0zvRUOQBz6e45ewHuOrp26JXJqxIHydMgRhZm', 'ADMINISTRATOR');
 
 INSERT INTO categories (name, status) VALUES ('Electrónica', 'ENABLED');
 INSERT INTO categories (name, status) VALUES ('Ropa', 'ENABLED');
