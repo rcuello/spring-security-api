@@ -4,8 +4,24 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Collections;
 
+/**
+ * Clase de configuración que define los permisos asociados a cada rol de usuario.
+ * Esta clase proporciona un método estático para obtener la lista de permisos
+ * correspondientes a un rol específico.
+ * 
+ * @author Ronald Cuello
+ * @version 1.0
+ * @since 2024-10-01
+ */
 public class RolePermissionConfig {
 
+    /**
+     * Obtiene la lista de permisos asociados a un rol específico.
+     *
+     * @param role El rol para el cual se desean obtener los permisos.
+     * @return Una lista de permisos asociados al rol especificado. Si el rol no tiene
+     *         permisos definidos, se retorna una lista vacía.
+     */
     public static List<RolePermission> getPermissionsForRole(Role role) {
         switch (role) {
             case ADMINISTRATOR:
