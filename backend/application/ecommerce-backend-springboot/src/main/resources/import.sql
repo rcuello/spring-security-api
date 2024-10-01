@@ -15,38 +15,16 @@ INSERT INTO users (username, first_name,last_name,email, password, role) VALUES 
         -- Pablo Neruda (ID 6)
 INSERT INTO users (username, first_name,last_name,email, password, role) VALUES ('pablo.neruda', 'Pablo','Neruda','pablo.neruda@yopmail.com', '$2a$10$CfNa7120LlhuFZW5aS2gN.hkET/CmP0fKObYdbemtnaXTRjZVJZ4W', 'CUSTOMER');
 
--- Insertar categorías
-INSERT INTO categories (name, status) VALUES ('Electrónica' , 'ENABLED');
-INSERT INTO categories (name, status) VALUES ('Ropa'        , 'ENABLED');
-INSERT INTO categories (name, status) VALUES ('Deportes'    , 'ENABLED');
-INSERT INTO categories (name, status) VALUES ('Hogar'       , 'ENABLED');
-
--- Insertar productos en la categoría de Electrónica
-INSERT INTO products (name, price, status, category_id) VALUES ('Smartphone', 2000000.00, 'ENABLED', 1); 
-INSERT INTO products (name, price, status, category_id) VALUES ('Auriculares Bluetooth', 300000.00, 'DISABLED', 1); 
-INSERT INTO products (name, price, status, category_id) VALUES ('Tablet', 1200000.00, 'ENABLED', 1); 
-INSERT INTO products (name, price, status, category_id) VALUES ('Smartwatch', 800000.00, 'ENABLED', 1); 
-INSERT INTO products (name, price, status, category_id) VALUES ('Cámara Digital', 1500000.00, 'ENABLED', 1); 
-
--- Insertar productos en la categoría de Ropa
-INSERT INTO products (name, price, status, category_id) VALUES ('Camiseta', 80000.00, 'ENABLED', 2); 
-INSERT INTO products (name, price, status, category_id) VALUES ('Pantalones', 120000.00, 'ENABLED', 2); 
-INSERT INTO products (name, price, status, category_id) VALUES ('Zapatos', 180000.00, 'ENABLED', 2); 
-INSERT INTO products (name, price, status, category_id) VALUES ('Chaqueta', 250000.00, 'ENABLED', 2); 
-INSERT INTO products (name, price, status, category_id) VALUES ('Sombrero', 50000.00, 'ENABLED', 2); 
-
--- Insertar productos en la categoría de Deportes
-INSERT INTO products (name, price, status, category_id) VALUES ('Balón de Fútbol', 100000.00, 'ENABLED', 3); 
-INSERT INTO products (name, price, status, category_id) VALUES ('Raqueta de Tenis', 500000.00, 'DISABLED', 3); 
-INSERT INTO products (name, price, status, category_id) VALUES ('Bicicleta', 1500000.00, 'ENABLED', 3); 
-INSERT INTO products (name, price, status, category_id) VALUES ('Pesas', 300000.00, 'ENABLED', 3); 
-
--- Insertar productos en la categoría de Hogar
-INSERT INTO products (name, price, status, category_id) VALUES ('Aspiradora', 600000.00, 'ENABLED', 4); 
-INSERT INTO products (name, price, status, category_id) VALUES ('Licuadora', 200000.00, 'ENABLED', 4); 
-INSERT INTO products (name, price, status, category_id) VALUES ('Mesa de Centro', 400000.00, 'ENABLED', 4);
-INSERT INTO products (name, price, status, category_id) VALUES ('Silla de Oficina', 350000.00, 'ENABLED', 4);
-
+-- Insertar los parametros del sistema
+INSERT INTO system_parameters (config_key, setting_value) VALUES ('nombre_tienda', 'Mi Tienda Online');
+INSERT INTO system_parameters (config_key, setting_value) VALUES ('moneda_predeterminada', 'COP');
+INSERT INTO system_parameters (config_key, setting_value) VALUES ('idioma_predeterminado', 'es');
+INSERT INTO system_parameters (config_key, setting_value) VALUES ('metodos_pago', 'PSE, Nequi, Transferencia Bancaria');
+INSERT INTO system_parameters (config_key, setting_value) VALUES ('proveedores_envio', 'ServiEntrega, InterRapidisimo, Coordinadora, TCC');
+INSERT INTO system_parameters (config_key, setting_value) VALUES ('tasa_impuesto_predeterminada' , '0.19');
+INSERT INTO system_parameters (config_key, setting_value) VALUES ('smtp_server', 'smtp.mitienda.com');
+INSERT INTO system_parameters (config_key, setting_value) VALUES ('ui_theme', 'light');
+INSERT INTO system_parameters (config_key, setting_value) VALUES ('etiquetas_seo', 'ecommerce, online shopping, best deals');
 
 -- Insertar cupones iniciales
 INSERT INTO coupons (code, discount_percentage, valid_from, valid_until, usage_limit) VALUES ('BLACKFRIDAY'  , 20.00, '2024-11-24', '2024-11-25', 50);   -- Descuento por viernes negro
@@ -59,6 +37,59 @@ INSERT INTO coupons (code, discount_percentage, valid_from, valid_until, usage_l
 INSERT INTO coupons (code, discount_percentage, valid_from, valid_until, usage_limit) VALUES ('LOYALTY10'    , 10.00, '2024-02-01', '2024-02-28', 200);  -- Descuento por lealtad
 INSERT INTO coupons (code, discount_percentage, valid_from, valid_until, usage_limit) VALUES ('WEEKEND20'    , 20.00, '2024-11-01', '2024-11-30', 100);  -- Descuento de fin de semana
 INSERT INTO coupons (code, discount_percentage, valid_from, valid_until, usage_limit) VALUES ('FIRSTORDER'   , 15.00, '2024-01-01', '2024-12-31', 300);  -- Descuento en la primera orden
+
+-- Insertar categorías
+INSERT INTO categories (name, status) VALUES ('Electrónica' , 'ENABLED');
+INSERT INTO categories (name, status) VALUES ('Ropa'        , 'ENABLED');
+INSERT INTO categories (name, status) VALUES ('Deportes'    , 'ENABLED');
+INSERT INTO categories (name, status) VALUES ('Hogar'       , 'ENABLED');
+
+
+-- Insertar productos en la categoría de Electrónica
+INSERT INTO products (name, price, status, category_id) VALUES ('Smartphone', 2000000.00, 'ENABLED', 1); 
+INSERT INTO products (name, price, status, category_id) VALUES ('Auriculares Bluetooth', 300000.00, 'DISABLED', 1); 
+INSERT INTO products (name, price, status, category_id) VALUES ('Tablet', 1200000.00, 'ENABLED', 1); 
+INSERT INTO products (name, price, status, category_id) VALUES ('Smartwatch', 800000.00, 'ENABLED', 1); 
+INSERT INTO products (name, price, status, category_id) VALUES ('Cámara Digital', 1500000.00, 'ENABLED', 1); 
+INSERT INTO products (name, price, status, category_id) VALUES ('Laptop', 3500000.00, 'ENABLED', 1); 
+INSERT INTO products (name, price, status, category_id) VALUES ('Monitor', 1000000.00, 'ENABLED', 1); 
+INSERT INTO products (name, price, status, category_id) VALUES ('Impresora', 700000.00, 'ENABLED', 1); 
+INSERT INTO products (name, price, status, category_id) VALUES ('Teclado', 150000.00, 'ENABLED', 1); 
+INSERT INTO products (name, price, status, category_id) VALUES ('Mouse', 80000.00, 'ENABLED', 1); 
+
+-- Insertar productos en la categoría de Ropa
+INSERT INTO products (name, price, status, category_id) VALUES ('Camiseta', 80000.00, 'ENABLED', 2); 
+INSERT INTO products (name, price, status, category_id) VALUES ('Pantalones', 120000.00, 'ENABLED', 2); 
+INSERT INTO products (name, price, status, category_id) VALUES ('Zapatos', 180000.00, 'ENABLED', 2); 
+INSERT INTO products (name, price, status, category_id) VALUES ('Chaqueta', 250000.00, 'ENABLED', 2); 
+INSERT INTO products (name, price, status, category_id) VALUES ('Sombrero', 50000.00, 'ENABLED', 2); 
+INSERT INTO products (name, price, status, category_id) VALUES ('Vestido', 150000.00, 'ENABLED', 2); 
+INSERT INTO products (name, price, status, category_id) VALUES ('Blusa', 100000.00, 'ENABLED', 2); 
+INSERT INTO products (name, price, status, category_id) VALUES ('Jeans', 200000.00, 'ENABLED', 2); 
+INSERT INTO products (name, price, status, category_id) VALUES ('Sudadera', 120000.00, 'ENABLED', 2); 
+INSERT INTO products (name, price, status, category_id) VALUES ('Bufanda', 40000.00, 'ENABLED', 2); 
+
+-- Insertar productos en la categoría de Deportes
+INSERT INTO products (name, price, status, category_id) VALUES ('Balón de Fútbol', 100000.00, 'ENABLED', 3); 
+INSERT INTO products (name, price, status, category_id) VALUES ('Raqueta de Tenis', 500000.00, 'DISABLED', 3); 
+INSERT INTO products (name, price, status, category_id) VALUES ('Bicicleta', 1500000.00, 'ENABLED', 3); 
+INSERT INTO products (name, price, status, category_id) VALUES ('Pesas', 300000.00, 'ENABLED', 3); 
+INSERT INTO products (name, price, status, category_id) VALUES ('Raqueta de Ping Pong', 150000.00, 'ENABLED', 3); 
+INSERT INTO products (name, price, status, category_id) VALUES ('Balón de Baloncesto', 120000.00, 'ENABLED', 3); 
+INSERT INTO products (name, price, status, category_id) VALUES ('Guantes de Boxeo', 80000.00, 'ENABLED', 3); 
+INSERT INTO products (name, price, status, category_id) VALUES ('Mancuernas', 200000.00, 'ENABLED', 3); 
+INSERT INTO products (name, price, status, category_id) VALUES ('Casco de Ciclismo', 250000.00, 'ENABLED', 3); 
+
+-- Insertar productos en la categoría de Hogar
+INSERT INTO products (name, price, status, category_id) VALUES ('Aspiradora', 600000.00, 'ENABLED', 4); 
+INSERT INTO products (name, price, status, category_id) VALUES ('Licuadora', 200000.00, 'ENABLED', 4); 
+INSERT INTO products (name, price, status, category_id) VALUES ('Mesa de Centro', 400000.00, 'ENABLED', 4);
+INSERT INTO products (name, price, status, category_id) VALUES ('Silla de Oficina', 350000.00, 'ENABLED', 4);
+INSERT INTO products (name, price, status, category_id) VALUES ('Televisor', 1800000.00, 'ENABLED', 4); 
+INSERT INTO products (name, price, status, category_id) VALUES ('Refrigerador', 3000000.00, 'ENABLED', 4); 
+INSERT INTO products (name, price, status, category_id) VALUES ('Lavadora', 2500000.00, 'ENABLED', 4); 
+INSERT INTO products (name, price, status, category_id) VALUES ('Microondas', 500000.00, 'ENABLED', 4); 
+INSERT INTO products (name, price, status, category_id) VALUES ('Cafetera', 150000.00, 'ENABLED', 4); 
 
 
 -- Insertar comentarios de productos
@@ -116,16 +147,5 @@ INSERT INTO product_reviews (rating, comment, review_date, product_id, customer_
 INSERT INTO product_reviews (rating, comment, review_date, product_id, customer_id) VALUES (1, 'Las pesas son de mala calidad, no duran mucho.', '2024-11-19', 14, 4);                             -- Don Quijote (ID 4) comenta nuevamente sobre las Pesas
 INSERT INTO product_reviews (rating, comment, review_date, product_id, customer_id) VALUES (3, 'La aspiradora es demasiado ruidosa, pero es muy potente.', '2024-11-20', 15, 5);                   -- Lorca Gonzales (ID 5) comenta nuevamente sobre la Aspiradora
 INSERT INTO product_reviews (rating, comment, review_date, product_id, customer_id) VALUES (2, 'La licuadora no tiene suficiente potencia, pero es facil de usar.', '2024-11-21', 16, 6);          -- Pablo Neruda (ID 6) comenta nuevamente sobre la Licuadora
-INSERT INTO product_reviews (rating, comment, review_date, product_id, customer_id) VALUES (1, 'La mesa de centro es demasiado pequena, no sirve para mucho.', '2024-11-22', 17, 3);               -- John Doe (ID 3) comenta nuevamente sobre la Mesa de Centro
-INSERT INTO product_reviews (rating, comment, review_date, product_id, customer_id) VALUES (3, 'La silla de oficina es incomoda, pero tiene buena calidad.', '2024-11-23', 18, 4);                 -- Don Quijote (ID 4) comenta nuevamente sobre la Silla de Oficina
 
--- Insertar los parametros del sistema
-INSERT INTO system_parameters (config_key, setting_value) VALUES ('nombre_tienda', 'Mi Tienda Online');
-INSERT INTO system_parameters (config_key, setting_value) VALUES ('moneda_predeterminada', 'COP');
-INSERT INTO system_parameters (config_key, setting_value) VALUES ('idioma_predeterminado', 'es');
-INSERT INTO system_parameters (config_key, setting_value) VALUES ('metodos_pago', 'PSE, Nequi, Transferencia Bancaria');
-INSERT INTO system_parameters (config_key, setting_value) VALUES ('proveedores_envio', 'ServiEntrega, InterRapidisimo, Coordinadora, TCC');
-INSERT INTO system_parameters (config_key, setting_value) VALUES ('tasa_impuesto_predeterminada' , '0.19');
-INSERT INTO system_parameters (config_key, setting_value) VALUES ('smtp_server', 'smtp.mitienda.com');
-INSERT INTO system_parameters (config_key, setting_value) VALUES ('ui_theme', 'light');
-INSERT INTO system_parameters (config_key, setting_value) VALUES ('etiquetas_seo', 'ecommerce, online shopping, best deals');
+
