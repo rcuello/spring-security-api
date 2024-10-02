@@ -1,0 +1,125 @@
+{
+	"info": {
+		"_postman_id": "9c18df45-878e-4b8d-add2-bc3cb8594f9e",
+		"name": "Spring-security-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "156569"
+	},
+	"item": [
+		{
+			"name": "Customers",
+			"item": [
+				{
+					"name": "Basic Auth",
+					"item": [
+						{
+							"name": "My Profile",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "rcuello",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "abc1234567891011",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9191/api/v1/customer/my-profile",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9191",
+									"path": [
+										"api",
+										"v1",
+										"customer",
+										"my-profile"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "JWT",
+					"item": [
+						{
+							"name": "My Profile",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyY3VlbGxvNCIsImlhdCI6MTcyNzkxMDEyMCwiZXhwIjoxNzI3OTExOTIwLCJyb2xlIjoiQ1VTVE9NRVIiLCJuYW1lIjoiUm9uYWxkIiwiYXV0aG9yaXRpZXMiOlt7ImF1dGhvcml0eSI6IlJFQURfTVlfUFJPRklMRSJ9LHsiYXV0aG9yaXR5IjoiUk9MRV9DVVNUT01FUiJ9XX0.ODbd_bvg0m-vMXupAoN0m_RE0VIn07Tv2tgfWrVA-6o",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9191/api/v1/customer/my-profile",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9191",
+									"path": [
+										"api",
+										"v1",
+										"customer",
+										"my-profile"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "[public] Create Customer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\":\"rcuello4\",\r\n  \"name\" : \"Ronald\",\r\n  \"lastName\" :\"Cuello\",\r\n  \"email\":\"roa@mail.com\",\r\n  \"password\":\"abc1234567891011\",\r\n  \"repeatedPassword\":\"abc1234567891011\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9191/api/v1/public/register-customer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9191",
+					"path": [
+						"api",
+						"v1",
+						"public",
+						"register-customer"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
